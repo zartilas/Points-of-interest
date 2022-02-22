@@ -1,0 +1,47 @@
+<div class="card mt-5">
+    <div class="card-header">
+        <h4 class="font-weight-bold">Update User</h4>
+    </div>
+    <div class="card-body">
+        <form action="/updateUser/<%= user._id %>" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="firstname">First Name</label>
+                        <input type="text" class="form-control" value="<%= user.firstname %>" name="firstname" placeholder="enter first name" id="firstname">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="lastname">Last Name</label>
+                        <input type="text" class="form-control" value="<%= user.lastname %>" name="lastname" placeholder="enter last name" id="lastname">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="phonenumber">Phone Number</label>
+                        <input type="number" class="form-control" value="<%= user.phonenumber %>" name="phonenumber" placeholder="enter your phone number" id="phonenumber">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="cnic">CNIC</label>
+                        <input type="text" class="form-control" value="<%= user.cnic %>" name="cnic" placeholder="22222-2222222-2" id="cnic">
+                    </div>
+                </div>
+                <!-- <div class="col-12">
+                    <div class="form-group">
+                        <label for="addres">Address</label>
+                        <textarea class="form-control" name="address" id="address" rows="3">
+                        <%= user.address %>
+                        </textarea>
+                    </div>
+                </div> -->
+            </div>
+            <div class="mt-5">
+                <button type="submit" class="btn btn-success">Update</button>
+                <a href="/" class="btn btn-light">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

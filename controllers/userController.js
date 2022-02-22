@@ -1,4 +1,4 @@
-const {User, validate} = require('../models/user');
+const {User,validate} = require('../models/user');
 
 const getAllUsers = async (req, res, next) => {
     const list = await User.find().exec();
@@ -19,8 +19,7 @@ const addUser = async (req, res, next) => {
         firstname: data.firstname,
         lastname: data.lastname,
         phonenumber: data.phonenumber,
-        cnic: data.cnic,
-        email: data.email
+        cnic: data.cnic
     });
     user = await user.save();
     res.redirect('/');
@@ -47,8 +46,7 @@ const updateUser = async(req, res, next) => {
         firstname: data.firstname,
         lastname: data.lastname,
         phonenumber: data.phonenumber,
-        cnic: data.cnic,
-        email: data.email
+        cnic: data.cnic
     }, {new: true});
     if(!user) return res.status(404).send('User with the given id not found');
 

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -7,7 +6,7 @@ const bodyParser = require('body-parser');
 const config = require('./startup/config');
 const winston = require('winston');
 const err = require('./middleware/errors');
-const pointsRoutes = require('./routes/points-routes');
+const userRoutes = require('./routes/user-routes');
 const app = express();
 
 require('./startup/database')();
@@ -22,7 +21,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(pointsRoutes.routes);
+app.use(userRoutes.routes);
 app.use(err);
 
 
