@@ -1,0 +1,41 @@
+<div class="card mt-5 mb-5">
+    <div class="card-header">
+        <h4 class="font-weight-bold">Update Point</h4>
+    </div>
+    <div class="card-body">
+        <form action="/updatePoint/<%= point._id %>" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="pointname">Point Name</label>
+                        <input type="text" class="form-control" value="<%= point.pointname %>" name="pointname" placeholder="enter point name" id="pointname">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="address">Address</label>
+                        <input type="text" class="form-control" value="<%= point.address %>" name="address" placeholder="enter address" id="address" row="3">
+                    </div>
+                </div>
+                <!-- <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-form-label" for="phonenumber">Description</label>
+                        <input type="text" class="form-control" value="<%= point.description %>" name="description" placeholder="enter description" id="description" rows="5">
+                    </div>
+                </div> -->
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="col-form-label" for="description">Description</label>
+                        <textarea type="text" class="form-control" value="<%= point.description %>" name="description" 
+                            placeholder="Enter your description here...." id="description" rows="3"><%=point.description%></textarea>
+                    </div>
+                </div> 
+            </div>
+            <div class="mt-5">
+           
+                <button href="/points" type="submit" class="btn btn-success" >Update point</button>
+                <a href="/points" class="btn btn-light">Discard changes</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,13 +2,13 @@ const {User,validate} = require('../models/user');
 
 const getAllUsers = async (req, res, next) => {
     const list = await User.find().exec();
-    res.render('userlist', {
+    res.render('user/userlist', {
         users: list
     });
 }
 
 const getAddUserView = (req, res, next) => {
-    res.render('addUser');
+    res.render('user/addUser');
 }
 
 const addUser = async (req, res, next) => {
@@ -19,17 +19,17 @@ const addUser = async (req, res, next) => {
         firstname: data.firstname,
         lastname: data.lastname,
         phonenumber: data.phonenumber,
-        cnic: data.cnic
+        email: data.email
     });
     user = await user.save();
-    res.redirect('/');
+    res.redirect('users');
 }
 
 const getUpdateUserView = async (req, res, next) => {
     try {
         const id = req.params.id;
         const oneuser = await User.findById(id).exec();
-        res.render('updateUser', {
+        res.render('user/updateUser', {
             user: oneuser
         });
     } catch (error) {
@@ -46,7 +46,7 @@ const updateUser = async(req, res, next) => {
         firstname: data.firstname,
         lastname: data.lastname,
         phonenumber: data.phonenumber,
-        cnic: data.cnic
+        email: data.email
     }, {new: true});
     if(!user) return res.status(404).send('User with the given id not found');
 
@@ -57,7 +57,7 @@ const getDeleteUserView = async (req, res, next) => {
     try {
         const id = req.params.id;
         const oneuser = await User.findById(id).exec();
-        res.render('deleteUser', {
+        res.render('user/deleteUser', {
             user: oneuser
         });
     } catch (error) {

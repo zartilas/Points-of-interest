@@ -1,4 +1,4 @@
-<div class="card mt-5">
+<div class="card mt-5 mb-5">
     <div class="card-header">
         <h4 class="font-weight-bold">Update User</h4>
     </div>
@@ -25,22 +25,15 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
-                        <label class="col-form-label" for="cnic">CNIC</label>
-                        <input type="text" class="form-control" value="<%= user.cnic %>" name="cnic" placeholder="22222-2222222-2" id="cnic">
+                        <label class="col-form-label" for="email">Email</label>
+                        <input type="email" class="form-control" value="<%= user.email %>" name="email" placeholder="email@mail.com" id="email">
                     </div>
                 </div>
-                <!-- <div class="col-12">
-                    <div class="form-group">
-                        <label for="addres">Address</label>
-                        <textarea class="form-control" name="address" id="address" rows="3">
-                        <%= user.address %>
-                        </textarea>
-                    </div>
-                </div> -->
             </div>
             <div class="mt-5">
-                <button type="submit" class="btn btn-success">Update</button>
-                <a href="/" class="btn btn-light">Cancel</a>
+           
+                <button href="/users" type="submit" class="btn btn-success" >Update User</button>
+                <a href="/users" class="btn btn-light">Discard changes</a>
             </div>
         </form>
     </div>

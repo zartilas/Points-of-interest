@@ -6,7 +6,7 @@ const {getAllUsers, getAddUserView, addUser,
 
 const router = express.Router();
 
-router.get('/', getAllUsers);
+router.get('/users', getAllUsers);
 router.get('/addUser', getAddUserView);
 router.post('/addUser', addUser);
 router.get('/updateUser/:id', getUpdateUserView);

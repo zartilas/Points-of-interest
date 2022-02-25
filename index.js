@@ -7,6 +7,7 @@ const config = require('./startup/config');
 const winston = require('winston');
 const err = require('./middleware/errors');
 const userRoutes = require('./routes/user-routes');
+const pointRoutes = require('./routes/point-routes');
 const app = express();
 
 require('./startup/database')();
@@ -22,7 +23,11 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(userRoutes.routes);
+app.use(pointRoutes.routes);
 app.use(err);
+
+app.get('/', (req, res)=>{
+res.render('home'); });
 
 
 app.listen(config.port, () => winston.info('App is listening on url http://localhost:' + config.port));
