@@ -29,5 +29,9 @@ app.use(err);
 app.get('/', (req, res)=>{
 res.render('home'); });
 
+app.use((req,res,next)=>{
+    console.log("Hi my Friend, I am your middleware!")
+    next();
+});
 
 app.listen(config.port, () => winston.info('App is listening on url http://localhost:' + config.port));
