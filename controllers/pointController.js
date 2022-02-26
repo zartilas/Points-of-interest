@@ -116,7 +116,7 @@ const updatePointByName = async(req, res, next) => {
 
 const updatePointById = async(req, res, next) => {
     try{
-        const olddata = await Point.findById(req.params.id);
+        const olddata = await Point.findByIdAndUpdate(req.params.id);
         const data = req.body;
 
         let point = await Point.findByIdAndUpdate(req.params.id, {
