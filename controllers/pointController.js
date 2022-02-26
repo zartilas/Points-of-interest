@@ -15,39 +15,55 @@ const getAllPoints = async (req, res, next) => {
 
 
 const getPointById = async (req, res, next)=>{
-    const id = req.params.id;
-    const point = await Point.findById(id);
-    if (!point) {   
-        return res.status(404).json({
+
+  try{
+        const point = await Point.findById(req.params.id);
+        if (!point) {   
+            return res.status(404).json({
+                status:"failure",
+                message: "Something went wrong, Try again. Maybe not found",
+            });
+        }
+        return res.status(200).json({
+            status:"success",
+            data: {
+                point
+            }
+        });
+
+    }catch{
+        res.status(404).json({
             status:"failure",
-            message: "Something went wrong, Try again. Maybe not found",
+            message: "Something went wrong, Try again.",
         });
     }
-    return res.status(200).json({
-        status:"success",
-        data: {
-            point
-        }
-    });
 }
+
 
 const getPointByName = async (req, res, next) => {
-    const name = req.params.name;
-    const point = await Point.findOne({name: name});
-    // if (!point) {
-    //     return res.status(404).json({
-    //         status:"failure",
-    //         message: "Something went wrong, Try again. Maybe not found",
-    //     });
-    // }
-
-    return res.status(200).json({
-        status:"success",
-        data: {
-            point
+    try{
+        const point = await Point.findOne({pointname: req.params.pointname});
+        if (!point) {
+            return res.status(404).json({
+                status:"failure",
+                message: "Something went wrong, Try again. Maybe not found",
+            });
         }
-    });
+        return res.status(200).json({
+            status:"success",
+            data: {
+            point
+            }
+        });
+    }catch{
+        res.status(404).json({
+            status:"failure",
+            message: "Something went wrong, Try again.",
+        });
+       }   
 }
+
+
 
 const addPoint = async (req, res, next) => {
     const {error} = validate(req.body);
@@ -73,9 +89,9 @@ const addPoint = async (req, res, next) => {
 const updatePointByName = async(req, res, next) => {
     //const {error} = validate(req.body);
     //if (error) return res.status(422).send(error.details[0].message);
-    const old_Name = req.params.name;
+ 
     const data = req.body;
-    let point = await Point.updateOne({name: old_Name}, {
+    let point = await Point.findOneAndUpdate({name: req.params.name}, {
         pointname: data.pointname,
         address: data.address,
         description: data.description
@@ -88,8 +104,7 @@ const updatePointByName = async(req, res, next) => {
         status:"success",
         message: "Point was updated successfully!",
         data: {
-            old_Name,
-            new_Name:data
+           data
         }
     });
 }
@@ -97,11 +112,10 @@ const updatePointByName = async(req, res, next) => {
 const updatePointById = async(req, res, next) => {
     // const {error} = validate(req.body);
     // if (error) return res.status(422).send(error.details[0].message);
-    const id = req.params.id;
-    const olddata = await Point.findById(id);
+    const olddata = await Point.findById(req.params.id);
     const data = req.body;
 
-    let point = await Point.findByIdAndUpdate(id, {
+    let point = await Point.findByIdAndUpdate(req.params.id, {
         pointname: data.pointname,
         address: data.address,
         description: data.description
@@ -130,7 +144,10 @@ const deletePoint = async (req, res, next) => {
         else
         return res.status(200).json({
             status:"success",
-            message: "Point deleted successfully!"
+            message: "Point deleted!",
+            data:{
+                point: "GoodBye " + point.pointname
+            }
         });   
     } catch (error) {
         res.status(400).send(error.message);
@@ -147,7 +164,7 @@ module.exports = {
     //post
     addPoint,
 
-    //patch
+    //patches
     updatePointByName,
     updatePointById,
  

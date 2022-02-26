@@ -12,7 +12,7 @@ const router = express.Router();
 //gets
 router.get('/points', getAllPoints);
 router.get('/points/getPointById/:id', getPointById);
-router.get('/points/getPointByName/:name', getPointByName);
+router.get('/points/getPointByName/:pointname', getPointByName);
 
 
 //{posts,patches,deletes}
