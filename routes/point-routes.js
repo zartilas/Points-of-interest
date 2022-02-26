@@ -18,7 +18,7 @@ router.get('/points/getPointByName/:pointname', getPointByName);
 //{posts,patches,deletes}
 router.post('/points/addPoint', addPoint);
 router.patch('/points/updatePointById/:id', updatePointById);
-router.patch('/points/updatePointByName/:name', updatePointByName);
+router.patch('/points/updatePointByName/:pointname', updatePointByName);
 router.delete('/points/deletePoint/:id', deletePoint);
 
 

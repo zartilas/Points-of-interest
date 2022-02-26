@@ -1,5 +1,6 @@
 const {Point,validate} = require('../models/point');
 
+
 const getAllPoints = async (req, res, next) => {
     const listOfPoints = await Point.find().exec();
     return res.status(200).json({
@@ -87,9 +88,11 @@ const addPoint = async (req, res, next) => {
 }
 
 const updatePointByName = async(req, res, next) => {
-  try{
+    try{
+        const olddata = await Point.findOne({pointname: req.params.pointname});
         const data = req.body;
-        let point = await Point.findOneAndUpdate({name: req.params.name}, {
+
+        let point = await Point.findOneAndUpdate({pointname: req.params.pointname}, {
             pointname: data.pointname,
             address: data.address,
             description: data.description
@@ -100,12 +103,12 @@ const updatePointByName = async(req, res, next) => {
         }); else
         return res.status(200).json({
             status:"success",
-            message: "Point was updated successfully!",
+            message: "Point was updated successfully! (by Name)",
             data: {
-            data
+                old_Point: olddata,  
+                new_Point: point
             }
         });
-
     }catch{
         res.status(404).json({
             status:"failure",
