@@ -87,51 +87,61 @@ const addPoint = async (req, res, next) => {
 }
 
 const updatePointByName = async(req, res, next) => {
-    //const {error} = validate(req.body);
-    //if (error) return res.status(422).send(error.details[0].message);
- 
-    const data = req.body;
-    let point = await Point.findOneAndUpdate({name: req.params.name}, {
-        pointname: data.pointname,
-        address: data.address,
-        description: data.description
-    }, {new: true});
-    if(!point) return res.status(400).json({
-        status:"failure",
-        message: "Something went wrong, Try again. Maybe not found",
-    }); else
-    return res.status(200).json({
-        status:"success",
-        message: "Point was updated successfully!",
-        data: {
-           data
-        }
-    });
+  try{
+        const data = req.body;
+        let point = await Point.findOneAndUpdate({name: req.params.name}, {
+            pointname: data.pointname,
+            address: data.address,
+            description: data.description
+        }, {new: true});
+        if(!point) return res.status(400).json({
+            status:"failure",
+            message: "Something went wrong, Try again. Maybe not found",
+        }); else
+        return res.status(200).json({
+            status:"success",
+            message: "Point was updated successfully!",
+            data: {
+            data
+            }
+        });
+
+    }catch{
+        res.status(404).json({
+            status:"failure",
+            message: "Something went wrong, Try again.",
+        });
+    }
 }
 
 const updatePointById = async(req, res, next) => {
-    // const {error} = validate(req.body);
-    // if (error) return res.status(422).send(error.details[0].message);
-    const olddata = await Point.findById(req.params.id);
-    const data = req.body;
+    try{
+        const olddata = await Point.findById(req.params.id);
+        const data = req.body;
 
-    let point = await Point.findByIdAndUpdate(req.params.id, {
-        pointname: data.pointname,
-        address: data.address,
-        description: data.description
-    }, {new: true});
-    if(!point) return res.status(400).json({
-        status:"failure",
-        message: "Something went wrong, Try again. Maybe not found",
-    }); else
-    return res.status(200).json({
-        status:"success",
-        message: "Point was updated successfully! (by ID)",
-        data: {
-            old_Point: olddata,  
-            new_Point: point
-        }
-    });
+        let point = await Point.findByIdAndUpdate(req.params.id, {
+            pointname: data.pointname,
+            address: data.address,
+            description: data.description
+        }, {new: true});
+        if(!point) return res.status(400).json({
+            status:"failure",
+            message: "Something went wrong, Try again. Maybe not found",
+        }); else
+        return res.status(200).json({
+            status:"success",
+            message: "Point was updated successfully! (by ID)",
+            data: {
+                old_Point: olddata,  
+                new_Point: point
+            }
+        });
+    }catch{
+        res.status(404).json({
+            status:"failure",
+            message: "Something went wrong, Try again.",
+        });
+    }
 }
 
 const deletePoint = async (req, res, next) => {
@@ -168,7 +178,6 @@ module.exports = {
     updatePointByName,
     updatePointById,
  
-    
     //delete
     deletePoint
 }
