@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const expressLayoutes = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const config = require('./startup/config');
 const winston = require('winston');
@@ -13,9 +12,6 @@ const app = express();
 require('./startup/database')();
 require('./startup/logging')();
 require('./startup/validations')();
-
-app.use(expressLayoutes);
-app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
@@ -29,6 +25,7 @@ app.use(err);
 app.get('/', (req, res)=>{
 res.render('home'); });
 
+//Middleware Test
 app.use((req,res,next)=>{
     console.log("Hi my Friend, I am your middleware!")
     next();

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-
 const userSchema = new mongoose.Schema({
     firstname: {
         type: String,
@@ -29,7 +28,6 @@ const userSchema = new mongoose.Schema({
         lowercase:true
     }
 });
-
 
 const User = mongoose.model('User', userSchema);
 

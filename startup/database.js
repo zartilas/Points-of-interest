@@ -7,5 +7,3 @@ module.exports = () => {
         useUnifiedTopology: true
     }).then(() => winston.info('MongoDb connected successfuly...'));
 }
-
-

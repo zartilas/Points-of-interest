@@ -9,8 +9,7 @@ const getAllUsers = async (req, res, next) => {
         data: {
             userList
         }
-    })
-    
+    })   
 }
 
 const addUser = async (req, res, next) => {
@@ -25,7 +24,9 @@ const addUser = async (req, res, next) => {
             phonenumber: data.phonenumber,
             email: data.email
         });
+
         user = await user.save();
+
         return res.status(200).json({
             status:"success",
             message: "User added!",
@@ -34,7 +35,6 @@ const addUser = async (req, res, next) => {
             }
         }); 
     } catch (error) {
-      
         res.status(200).json({
             status:"failure",
             message: "Email is already in use!"
@@ -44,31 +44,28 @@ const addUser = async (req, res, next) => {
 }
 
 const getUserById = async (req, res, next)=>{
-
    try{
         const user = await User.findById(req.params.id);
-    if (!user) {
-        return res.status(404).json({
-            status:"failure",
-            message: "Something went wrong, Try again. Maybe not found",
-        });
-    }
-
-    return res.status(200).json({
-        status:"success",
-        data: {
-            user
+        if (!user) {
+            return res.status(404).json({
+                status:"failure",
+                message: "Something went wrong, Try again. Maybe not found"
+            });
         }
-    });
-   }catch{
-    res.status(404).json({
-        status:"failure",
-        message: "Something went wrong, Try again.",
-    });
-   }
-   
-}
 
+        return res.status(200).json({
+            status:"success",
+            data: {
+                user
+            }
+        });
+    }catch{
+        res.status(404).json({
+            status:"failure",
+            message: "Something went wrong, Try again.",
+        });
+   }
+}
 
 const getUserByEmail = async (req, res, next) => {
     try{
@@ -76,7 +73,7 @@ const getUserByEmail = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({
                 status:"failure",
-                message: "Something went wrong, Try again. Maybe not found",
+                message: "Something went wrong, Try again. Maybe not found"
             });
         }
         return res.status(200).json({
@@ -86,44 +83,44 @@ const getUserByEmail = async (req, res, next) => {
             }
         });
     }catch{
-    res.status(404).json({
-        status:"failure",
-        message: "Something went wrong, Try again.",
-    });
+        res.status(404).json({
+            status:"failure",
+            message: "Something went wrong, Try again."
+        });
    }
 }
 
 const updateUserByEmail = async(req, res, next) => {
     const {error} = validate(req.body);
     if (error) return res.status(422).send(error.details[0].message);
-    const data = req.body;
+  
     let user = await User.findOneAndUpdate(req.params.email, {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         phonenumber: req.body.phonenumber,
         email: req.body.email
     }, {new: true});
+
     if(!user) return res.status(400).json({
         status:"failure",
-        message: "Something went wrong, Try again. Maybe not found",
-    }); else  
+        message: "Something went wrong, Try again. Maybe not found"
+    }); 
+
     return res.status(200).json({
         status:"success",
         message: "User was updated successfully!",
         data: req.body
-        
     });
 }
-
-
 
 const deleteUser = async (req, res, next) => {
     try {
         const user = await User.findByIdAndRemove(req.params.id);
         if(!user) return res.status(400).json({
             status:"failure",
-            message: "Something went wrong, Try again. Maybe not found"});
-        else
+            message: "Something went wrong, Try again. Maybe not found"
+        });
+        
         return res.status(200).json({
             status:"success",
             message: "User deleted!",
@@ -136,8 +133,8 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
-
 module.exports = {
+    
     //gets
     getAllUsers,
     getUserById,

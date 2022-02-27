@@ -1,14 +1,12 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-
 const pointSchema = new mongoose.Schema({
     pointname: {
         type: String,
         minlength: 5,
         maxlength: 50,
-        required: true
-        
+        required: true  
     },
     address: {
         type: String,
@@ -34,7 +32,6 @@ const validatePoint = (point) => {
     });
     return schema.validate(point);
 }
-
 
 module.exports.Point = Point;
 module.exports.validate = validatePoint;

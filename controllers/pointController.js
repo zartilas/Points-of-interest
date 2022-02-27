@@ -1,6 +1,5 @@
 const {Point,validate} = require('../models/point');
 
-
 const getAllPoints = async (req, res, next) => {
     const listOfPoints = await Point.find().exec();
     return res.status(200).json({
@@ -9,20 +8,17 @@ const getAllPoints = async (req, res, next) => {
         data: {
             listOfPoints
         }
-        
     })
-    
 }
 
 
 const getPointById = async (req, res, next)=>{
-
   try{
         const point = await Point.findById(req.params.id);
         if (!point) {   
             return res.status(404).json({
                 status:"failure",
-                message: "Something went wrong, Try again. Maybe not found",
+                message: "Something went wrong. Try again. Maybe not found"
             });
         }
         return res.status(200).json({
@@ -31,15 +27,13 @@ const getPointById = async (req, res, next)=>{
                 point
             }
         });
-
     }catch{
         res.status(404).json({
             status:"failure",
-            message: "Something went wrong, Try again.",
+            message: "Something went wrong. Try again."
         });
     }
 }
-
 
 const getPointByName = async (req, res, next) => {
     try{
@@ -47,7 +41,7 @@ const getPointByName = async (req, res, next) => {
         if (!point) {
             return res.status(404).json({
                 status:"failure",
-                message: "Something went wrong, Try again. Maybe not found",
+                message: "Something went wrong, Try again. Maybe not found"
             });
         }
         return res.status(200).json({
@@ -59,22 +53,22 @@ const getPointByName = async (req, res, next) => {
     }catch{
         res.status(404).json({
             status:"failure",
-            message: "Something went wrong, Try again.",
+            message: "Something went wrong, Try again."
         });
        }   
 }
 
-
-
 const addPoint = async (req, res, next) => {
     const {error} = validate(req.body);
     if(error) return res.status(422).send(error.details[0].message);
+
     const data = req.body;
     let point = await new Point({
         pointname: data.pointname,
         address: data.address,
         description: data.description
     });
+
     point = await point.save();
     
     return res.status(200).json({
@@ -84,7 +78,6 @@ const addPoint = async (req, res, next) => {
             point
         }
     });
-
 }
 
 const updatePointByName = async(req, res, next) => {
@@ -97,10 +90,12 @@ const updatePointByName = async(req, res, next) => {
             address: data.address,
             description: data.description
         }, {new: true});
+        
         if(!point) return res.status(400).json({
             status:"failure",
-            message: "Something went wrong, Try again. Maybe not found",
-        }); else
+            message: "Something went wrong, Try again. Maybe not found"
+        });
+
         return res.status(200).json({
             status:"success",
             message: "Point was updated successfully! (by Name)",
@@ -112,7 +107,7 @@ const updatePointByName = async(req, res, next) => {
     }catch{
         res.status(404).json({
             status:"failure",
-            message: "Something went wrong, Try again.",
+            message: "Something went wrong, Try again."
         });
     }
 }
@@ -127,10 +122,12 @@ const updatePointById = async(req, res, next) => {
             address: data.address,
             description: data.description
         }, {new: true});
+
         if(!point) return res.status(400).json({
             status:"failure",
-            message: "Something went wrong, Try again. Maybe not found",
-        }); else
+            message: "Something went wrong, Try again. Maybe not found"
+        });
+
         return res.status(200).json({
             status:"success",
             message: "Point was updated successfully! (by ID)",
@@ -142,7 +139,7 @@ const updatePointById = async(req, res, next) => {
     }catch{
         res.status(404).json({
             status:"failure",
-            message: "Something went wrong, Try again.",
+            message: "Something went wrong, Try again."
         });
     }
 }
@@ -153,8 +150,9 @@ const deletePoint = async (req, res, next) => {
         const point = await Point.findByIdAndRemove(id);
         if(!point) return res.status(400).json({
             status:"failure",
-            message: "Something went wrong, Try again. Maybe not found"});
-        else
+            message: "Something went wrong, Try again. Maybe not found"
+        });
+        
         return res.status(200).json({
             status:"success",
             message: "Point deleted!",
@@ -169,7 +167,7 @@ const deletePoint = async (req, res, next) => {
 
 module.exports = {
 
-    //get
+    //gets
     getAllPoints,
     getPointById,
     getPointByName,

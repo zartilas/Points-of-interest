@@ -7,14 +7,11 @@ duplicateEmail = (req, res, next) => {
     User.findOne({
       email: req.body.email
     }).exec((err, user) => {
-      
       if (user) {
         return res.status(200).json({ 
             message: "Email is already in use!" 
         });
-       
       }
-
       next();
     });
 };
